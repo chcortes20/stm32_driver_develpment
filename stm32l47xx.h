@@ -8,6 +8,7 @@
 #ifndef INC_STM32L47XX_H_
 #define INC_STM32L47XX_H_
 
+#include <stdint.h>
 
 /*
  * base addresses for Flash and SRAM memories
@@ -198,17 +199,122 @@ typedef struct
 #define GPIOI 					((GPIO_TypeDef *) GPIOI_BASEADDR)
 
 
+#define RCC 					((RCC_TypeDef *) RCC_BASEADDR)
 
 
 
 
+/*
+ * clock enable macros for GPIOx peripherals
+ */
+#define GPIOA_PCLK_EN()			(RCC->AHB2ENR |= (1 << 0))
+#define GPIOB_PCLK_EN()			(RCC->AHB2ENR |= (1 << 1))
+#define GPIOC_PCLK_EN()			(RCC->AHB2ENR |= (1 << 2))
+#define GPIOD_PCLK_EN()			(RCC->AHB2ENR |= (1 << 3))
+#define GPIOE_PCLK_EN()			(RCC->AHB2ENR |= (1 << 4))
+#define GPIOF_PCLK_EN()			(RCC->AHB2ENR |= (1 << 5))
+#define GPIOG_PCLK_EN()			(RCC->AHB2ENR |= (1 << 6))
+#define GPIOH_PCLK_EN()			(RCC->AHB2ENR |= (1 << 7))
+#define GPIOI_PCLK_EN()			(RCC->AHB2ENR |= (1 << 8))
+#define OTGFS_PCLK_EN()			(RCC->AHB2ENR |= (1 << 12))
+#define ADC_PCLK_EN()			(RCC->AHB2ENR |= (1 << 13))
+#define DCMI_PCLK_EN()			(RCC->AHB2ENR |= (1 << 14))
+#define AES_PCLK_EN()			(RCC->AHB2ENR |= (1 << 16))
+#define HASH_PCLK_EN()			(RCC->AHB2ENR |= (1 << 17))
+#define RNG_PCLK_EN()			(RCC->AHB2ENR |= (1 << 18))
+
+/*
+ * clock enable macros for I2Cx peripherals
+ */
+#define I2C1_PCLK_EN()			(RCC->APB1ENR1 |= (1 << 21))
+#define I2C2_PCLK_EN()			(RCC->APB1ENR1 |= (1 << 22))
+#define I2C3_PCLK_EN()			(RCC->APB1ENR1 |= (1 << 23))
+
+
+#define I2C4_PCLK_EN()			(RCC->APB1ENR2 |= (1 << 1))
+
+
+/*
+ * clock enable macros for SPIx peripherals
+ */
+#define SPI1_PCLK_EN()			(RCC->APB2ENR |= (1 << 12))
+#define SPI2_PCLK_EN()			(RCC->APB1ENR1 |= (1 << 14))
+#define SPI3_PCLK_EN()			(RCC->APB1ENR1 |= (1 << 15))
+
+/*
+ * clock enable macros for USARTx peripherals
+ */
+#define USART2_PCLK_EN()		(RCC->APB1ENR1 |= (1 << 17))
+#define USART3_PCLK_EN()		(RCC->APB1ENR1 |= (1 << 18))
+#define UART4_PCLK_EN()			(RCC->APB1ENR1 |= (1 << 19))
+#define UART5_PCLK_EN()			(RCC->APB1ENR1 |= (1 << 20))
+
+#define LPUART1_PCLK_EN()		(RCC->APB1ENR2 |= (1 << 0))
+
+#define USART1_PCLK_EN()		(RCC->APB2ENR |= (1 << 14))
+
+
+/*
+ * clock enable macros for SYSCFG peripherals
+ */
+#define SYSCFG_PCLK_EN()		(RCC->APB2ENR |= (1 << 0))
 
 
 
+/*
+ * clock Disable macros for GPIOx peripherals
+ */
+#define GPIOA_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 0))
+#define GPIOB_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 1))
+#define GPIOC_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 2))
+#define GPIOD_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 3))
+#define GPIOE_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 4))
+#define GPIOF_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 5))
+#define GPIOG_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 6))
+#define GPIOH_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 7))
+#define GPIOI_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 8))
+#define OTGFS_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 12))
+#define ADC_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 13))
+#define DCMI_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 14))
+#define AES_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 16))
+#define HASH_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 17))
+#define RNG_PCLK_DI()			(RCC->AHB2ENR &= ~(1 << 18))
+
+/*
+ * clock Disable macros for I2Cx peripherals
+ */
+#define I2C1_PCLK_DI()			(RCC->APB1ENR1 &= ~(1 << 21))
+#define I2C2_PCLK_DI()			(RCC->APB1ENR1 &= ~(1 << 22))
+#define I2C3_PCLK_DI()			(RCC->APB1ENR1 &= ~(1 << 23))
 
 
+#define I2C4_PCLK_DI()			(RCC->APB1ENR2 &= ~(1 << 1))
 
 
+/*
+ * clock Disable macros for SPIx peripherals
+ */
+#define SPI1_PCLK_DI()			(RCC->APB2ENR  &= ~(1 << 12))
+#define SPI2_PCLK_DI()			(RCC->APB1ENR1 &= ~(1 << 14))
+#define SPI3_PCLK_DI()			(RCC->APB1ENR1 &= ~(1 << 15))
+
+/*
+ * clock Disable macros for USARTx peripherals
+ */
+#define USART2_PCLK_DI()		(RCC->APB1ENR1 &= ~(1 << 17))
+#define USART3_PCLK_DI()		(RCC->APB1ENR1 &= ~(1 << 18))
+#define UART4_PCLK_DI()			(RCC->APB1ENR1 &= ~(1 << 19))
+#define UART5_PCLK_DI()			(RCC->APB1ENR1 &= ~(1 << 20))
+
+#define LPUART1_PCLK_DI()		(RCC->APB1ENR2 &= ~(1 << 0))
+
+#define USART1_PCLK_DI()		(RCC->APB2ENR  &= ~(1 << 14))
+
+
+/*
+ * clock Disable macros for SYSCFG peripherals
+ */
+#define SYSCFG_PCLK_DI()		(RCC->APB2ENR  &= ~(1 << 0))
 
 
 #endif /* INC_STM32L47XX_H_ */

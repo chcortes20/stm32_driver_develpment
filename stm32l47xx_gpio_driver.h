@@ -31,6 +31,29 @@ typedef struct
 }GPIOx_Handle_t;
 
 
+/*
+ * define the modes of the GPIO pins
+ * */
+
+#define	GPIO_MODE_IN		0
+#define	GPIO_MODE_OUT		1
+#define	GPIO_MODE_ALTFN		2
+#define	GPIO_MODE_ANALOG	3
+
+#define	GPIO_MODE_IT_FT		4
+#define	GPIO_MODE_IT_RT		5
+#define	GPIO_MODE_IT_RFT	6
+
+
+
+
+/*
+ * Define the possible output types of the GPIOx pin
+ * */
+
+#define	GPIO_OP_TYPE_PP 0
+#define	GPIO_OP_TYPE_OD 1
+
 
 /******************************************************************************************************
  * 									APIs supported by the driver
@@ -40,28 +63,28 @@ typedef struct
 /*
  * peripheral clock set up
  */
-void GPIO_PeripheralClockControl(void);
+void GPIO_PeripheralClockControl(GPIO_TypeDef *pGPIOx, EnDiType_t enable );
 
 /*
  * Init and De-Init
  */
-void GPIO_Init(void);
-void GPIO_DeInit(void);
+void GPIO_Init(GPIOx_Handle_t *pGPIOxHandle);
+void GPIO_DeInit(GPIO_TypeDef *pGPIOx);
 
 /*
  * Data Read and Write
  */
-void GPIO_ReadFromPin(void);
-void GPIO_ReadFromPort(void);
-void GPIO_WriteToPin(void);
-void GPIO_WriteToPort(void);
-void GPIO_TogglePin(void);
+uint32_t GPIO_ReadFromPin(GPIO_TypeDef *pGPIOx, uint8_t PinNumber);
+uint32_t GPIO_ReadFromPort(GPIO_TypeDef *pGPIOx);
+void GPIO_WriteToPin(GPIO_TypeDef *pGPIOx, uint8_t PinNumber, uint32_t value);
+void GPIO_WriteToPort(GPIO_TypeDef *pGPIOx,  uint32_t value);
+void GPIO_TogglePin(GPIO_TypeDef *pGPIOx, uint8_t PinNumber);
 
 /*
  * IRQ Configuration and ISR handling
  */
-void GPIO_IRQConfig(void);
-void GPIO_IRQHandling(void);
+void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi);
+void GPIO_IRQHandling(uint8_t PinNumber);
 
 
 

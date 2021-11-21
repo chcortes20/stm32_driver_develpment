@@ -45,7 +45,25 @@ typedef struct
 #define	GPIO_MODE_IT_RFT	6
 
 
-
+/*
+ * Define GPIO Pins
+ * */
+#define GPIO_PIN_0			0
+#define GPIO_PIN_1			1
+#define GPIO_PIN_2			2
+#define GPIO_PIN_3			3
+#define GPIO_PIN_4			4
+#define GPIO_PIN_5			5
+#define GPIO_PIN_6			6
+#define GPIO_PIN_7			7
+#define GPIO_PIN_8			8
+#define GPIO_PIN_9			9
+#define GPIO_PIN_10			10
+#define GPIO_PIN_11			11
+#define GPIO_PIN_12			12
+#define GPIO_PIN_13			13
+#define GPIO_PIN_14			14
+#define GPIO_PIN_15			15
 
 /*
  * Define the possible output types of the GPIOx pin
@@ -53,6 +71,25 @@ typedef struct
 
 #define	GPIO_OP_TYPE_PP 0
 #define	GPIO_OP_TYPE_OD 1
+
+
+
+/*
+ * Define the possible speeds of a GPIOx pin
+ * */
+#define GPIO_SPEED_LOW		0
+#define GPIO_SPEED_MED		1
+#define GPIO_SPEED_HIGH		2
+#define GPIO_SPEED_VHIGH	3
+
+
+/*
+ * GPIO pin pull up and pull down configuration macros
+ * */
+#define GPIO_NO_PUPD		0
+#define GPIO_PIN_PU			1
+#define GPIO_PIN_PD			2
+
 
 
 /******************************************************************************************************

@@ -111,9 +111,9 @@ void GPIO_DeInit(GPIO_TypeDef *pGPIOx);
 /*
  * Data Read and Write
  */
-uint32_t GPIO_ReadFromPin(GPIO_TypeDef *pGPIOx, uint8_t PinNumber);
-uint32_t GPIO_ReadFromPort(GPIO_TypeDef *pGPIOx);
-void GPIO_WriteToPin(GPIO_TypeDef *pGPIOx, uint8_t PinNumber, uint32_t value);
+uint8_t GPIO_ReadFromPin(GPIO_TypeDef *pGPIOx, uint8_t PinNumber);
+uint16_t GPIO_ReadFromPort(GPIO_TypeDef *pGPIOx);
+void GPIO_WriteToPin(GPIO_TypeDef *pGPIOx, uint8_t PinNumber, Pin_State_t value);
 void GPIO_WriteToPort(GPIO_TypeDef *pGPIOx,  uint32_t value);
 void GPIO_TogglePin(GPIO_TypeDef *pGPIOx, uint8_t PinNumber);
 

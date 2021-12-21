@@ -10,6 +10,47 @@
 
 #include <stdint.h>
 
+#define __IO volatile
+
+/********************************************* START : Processor Specific details ******************************************************
+ * */
+
+ /*
+ * ARM Cortex Mx Processor NVIC ISERx  register Addresses
+ */
+#define NVIC_ISER0				((__IO uint32_t *)0xE000E100)
+#define NVIC_ISER1				((__IO uint32_t *)0xE000E104)
+#define NVIC_ISER2				((__IO uint32_t *)0xE000E108)
+#define NVIC_ISER3				((__IO uint32_t *)0xE000E10C)
+
+ /*
+ * ARM Cortex Mx Processor NVIC ICERx  register Addresses
+ */
+#define NVIC_ICER0				((__IO uint32_t *)0xE000E180)
+#define NVIC_ICER1				((__IO uint32_t *)0xE000E184)
+#define NVIC_ICER2				((__IO uint32_t *)0xE000E188)
+#define NVIC_ICER3				((__IO uint32_t *)0xE000E18C)
+
+
+
+/*
+ * ARM Cotex Mx Processor NVIC IPRx register Address
+ */
+#define NVIC_IPR_BASEADDR		((__IO uint32_t *)0xE000E400)
+
+#define NO_IPR_BITS_IMPLEMENTED	4
+
+
+#define IRQ_NO_EXTI0			6
+#define IRQ_NO_EXTI1			7
+#define IRQ_NO_EXTI2			8
+#define IRQ_NO_EXTI3			9
+#define IRQ_NO_EXTI4			10
+#define IRQ_NO_EXTI9_5			23
+#define IRQ_NO_EXTI15_10		40
+
+#define NVIC_IRQ_PRIO15			15
+
 /*
  * base addresses for Flash and SRAM memories
 */
@@ -119,7 +160,7 @@
 
 /************************* peripheral register structure definitions **********************************/
 
-#define __IO volatile
+
 
 typedef struct
 {

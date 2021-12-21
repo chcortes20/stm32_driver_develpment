@@ -320,8 +320,31 @@ void GPIO_TogglePin(GPIO_TypeDef *pGPIOx, uint8_t PinNumber)
  *
  * @return		- None
  */
-void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi)
+void GPIO_IRQConfig(uint8_t IRQNumber,EnDiType_t EnorDi)
 {
+	if(EnorDi == ENABLE){
+		if(IRQNumber <= 31){
+			// prgram the ISER0
+			*NVIC_ISER0 |= (1 << IRQNumber);
+		}else if(IRQNumber > 31 && IRQNumber < 64){
+			// program the SIER1
+			*NVIC_ISER1 |= (1 << (IRQNumber %32));
+		}else if(IRQNumber >=  64 && IRQNumber < 96){
+			// program the ISER2
+			*NVIC_ISER2 |= (1 << (IRQNumber %64));
+		}
+	}else{
+		if(IRQNumber <= 31){
+			*NVIC_ICER0 |= (1 << IRQNumber);
+		}else if(IRQNumber > 31 && IRQNumber < 64){
+
+			*NVIC_ICER1 |= (1 << (IRQNumber %32));
+
+		}else if(IRQNumber >=  64 && IRQNumber < 96){
+			*NVIC_ICER2 |= (1 << (IRQNumber %64));
+		}
+
+	}
 
 }
 
@@ -335,9 +358,36 @@ void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi)
  *
  * @return		- None
  */
+void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint8_t IRQPriority)
+{
+	uint8_t iprx = IRQNumber / 4;
+	uint8_t iprx_section = IRQNumber % 4;
+	uint8_t shift_ammount  = (8 * iprx_section) + (8 - NO_IPR_BITS_IMPLEMENTED);
+
+	*(NVIC_IPR_BASEADDR + iprx) |= (IRQPriority << shift_ammount);
+
+}
+
+
+/***********************************************************************************
+ * @fn			- GPIO_PeripheralClockControl
+ *
+ * @brief 		- This function enables or disables the peripheral clock on the GPIOx Port
+ *
+ * @param[in]  	- The GIPOx Port that will be enables of disabled
+ * @param[in] 	- ENABLE or DISABLE value of emum type EnDiType_t
+ *
+ * @return		- None
+ */
 void GPIO_IRQHandling(uint8_t PinNumber)
 {
+	if(EXTI->PR1 &( 1 << PinNumber)){
+		EXTI ->PR1 |= (1 << PinNumber);
+	}
 
+	if(EXTI->PR2 &( 1 << PinNumber)){
+			EXTI ->PR2 |= (1 << PinNumber);
+		}
 }
 
 #include "stm32l47xx_gpio_driver.h"

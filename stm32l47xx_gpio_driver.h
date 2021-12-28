@@ -98,7 +98,7 @@ typedef struct
  * ****************************************************************************************************/
 
 /*
- * peripheral clock set up
+ * peripheral clock setup
  */
 void GPIO_PeripheralClockControl(GPIO_TypeDef *pGPIOx, EnDiType_t enable );
 

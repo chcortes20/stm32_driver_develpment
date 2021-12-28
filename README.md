@@ -20,4 +20,8 @@ The main items in this page are
 - Peripheral Register definition structures 
 - Peripheral Register bit definitions 
 - **Other useful microcontroller configurations macros** 
-- adding here as a test
+
+## stm32l47xx_gpio_driver
+The GPIO drivers header file defines macros and functions that are GPIO specific and do not reflect all GPIO use cases for othe micro controllers that use the same M cortes CPU. 
+
+This is why GPIO definition of not gound in the stm32l47xx.h file. 

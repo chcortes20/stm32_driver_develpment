@@ -255,6 +255,17 @@ typedef struct{
 }SYSCFG_TypeDef;
 
 
+
+typedef struct{
+	__IO uint32_t CR1;    /*<! SPI control register 1      Address offset:0x00 */
+	__IO uint32_t CR2;    /*<! SPI control register 2      Address offset:0x04 */
+	__IO uint32_t SR;     /*<! SPI status register         Address offset:0x08 */
+	__IO uint32_t DR;     /*<! SPI data register           Address offset:0x0C */
+	__IO uint32_t CRCPR;  /*<! SPI CRC polynomial register Address offset:0x10 */
+	__IO uint32_t RXCRCR; /*<! SPI Rx CRC register         Address offset:0x14 */
+	__IO uint32_t TXCRCR; /*<! SPI Tx CRC register         Address offset:0x18 */
+}SPI_Typedef;
+
 /*************************     peripheral declarations     **********************************/
 
 #define GPIOA 					((GPIO_TypeDef *) GPIOA_BASEADDR)
@@ -274,7 +285,12 @@ typedef struct{
 
 #define SYSCFG 					((SYSCFG_TypeDef *) SYSCFG_BASEADDR)
 
+#define SPI1 					((SPI_Typedef *) SPI1_BASEADDR)
+#define SPI2					((SPI_Typedef *) SPI2_BASEADDR)
+#define SPI3					((SPI_Typedef *) SPI3_BASEADDR)
 
+
+/*************************     peripheral clock enable      **********************************/
 /*
  * clock enable macros for GPIOx peripherals
  */
@@ -330,7 +346,7 @@ typedef struct{
 #define SYSCFG_PCLK_EN()		(RCC->APB2ENR |= (1 << 0))
 
 
-
+/*************************     peripheral clock disable     **********************************/
 /*
  * clock Disable macros for GPIOx peripherals
  */

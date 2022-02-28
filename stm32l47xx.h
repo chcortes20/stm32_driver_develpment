@@ -256,7 +256,6 @@ typedef struct{
 
 
 
-<<<<<<< HEAD
 typedef struct{
 	__IO uint32_t CR1;    /*<! SPI control register 1      Address offset:0x00 */
 	__IO uint32_t CR2;    /*<! SPI control register 2      Address offset:0x04 */
@@ -266,20 +265,6 @@ typedef struct{
 	__IO uint32_t RXCRCR; /*<! SPI Rx CRC register         Address offset:0x14 */
 	__IO uint32_t TXCRCR; /*<! SPI Tx CRC register         Address offset:0x18 */
 }SPI_Typedef;
-=======
-
-typedef struct 
-{
-	__IO uint32_t CR1;		/*!< SPI control register 1,      Address offset:0x00 */
-	__IO uint32_t CR2;		/*!< SPI control resigter 2,      Address offset:0x04 */
-	__IO uint32_t SR;		/*!< SPI status register,         Address offset:0x08 */
-	__IO uint32_t DR;		/*!< SPI data register,           Address offset:0x0C */
-	__IO uint32_t CRCPR;	/*!< SPI crc polynomial register, Address offset:0x10 */
-	__IO uint32_t RXCRCR;	/*!< SPI rx crc register,         Address offset:0x14 */
-	__IO uint32_t TXCRCR;   /*!< SPI tx crc register,         Address offset:0x18 */
-}SPIx_Typedef;
-
->>>>>>> 4b78f85a504c3cee14b164a2b76ee3c9efb85eb6
 
 /*************************     peripheral declarations     **********************************/
 
@@ -295,18 +280,14 @@ typedef struct
 
 
 #define RCC 					((RCC_TypeDef *) RCC_BASEADDR)
+
 #define EXTI					((EXTI_TypeDef *) EXTI_BASEADDR)
+
 #define SYSCFG 					((SYSCFG_TypeDef *) SYSCFG_BASEADDR)
 
-<<<<<<< HEAD
 #define SPI1 					((SPI_Typedef *) SPI1_BASEADDR)
 #define SPI2					((SPI_Typedef *) SPI2_BASEADDR)
 #define SPI3					((SPI_Typedef *) SPI3_BASEADDR)
-=======
-#define SPI1					((SPIx_Typedef *) SPI1_BASEADDR)
-#define SPI2					((SPIx_Typedef *) SPI2_BASEADDR)
-#define SPI3					((SPIx_Typedef *) SPI3_BASEADDR)
->>>>>>> 4b78f85a504c3cee14b164a2b76ee3c9efb85eb6
 
 
 /*************************     peripheral clock enable      **********************************/
@@ -434,13 +415,18 @@ typedef struct
 #define GPIOH_REG_RESET()		do{(RCC->AHB2RSTR |= (1 << 7)); (RCC->AHB2RSTR &= ~(1 << 7));}while(0)
 
 
+#define SPI1_REG_RESET()        do{(RCC->APB2RSTR  |= (1 << 12));(RCC->APB2RSTR  &= ~(1 << 12));}while(0)
+#define SPI2_REG_RESET()        do{(RCC->APB1RSTR1 |= (1 << 14));(RCC->APB1RSTR1 &= ~(1 << 14));}while(0)
+#define SPI3_REG_RESET()        do{(RCC->APB1RSTR1 |= (1 << 15));(RCC->APB1RSTR1 &= ~(1 << 15));}while(0)
+
+
 /*
  * Macro the converts GPIOx base address to Port code
  */
 #define GPIO_BASEADDR_TO_CODE(x)	((x == GPIOA)?0:\
-									 (x == GPIOB)?1:\
-									 (x == GPIOC)?2:\
-									 (x == GPIOD)?3:\
+                                     (x == GPIOB)?1:\
+                                     (x == GPIOC)?2:\
+                                     (x == GPIOD)?3:\
 									 (x == GPIOE)?4:\
 									 (x == GPIOF)?5:\
 									 (x == GPIOG)?6:\

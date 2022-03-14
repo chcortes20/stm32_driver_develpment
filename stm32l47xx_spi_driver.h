@@ -16,7 +16,7 @@ typedef struct{
 	uint8_t SPI_DeviceMode;
 	uint8_t SPI_BusConfig;
 	uint8_t SPI_SclkSpeed;
-	uint8_t SPI_CRCL;
+	uint8_t SPI_DS;
 	uint8_t SPI_CPOL;
 	uint8_t SPI_CPHA;
 	uint8_t SPI_SSM;
@@ -76,10 +76,10 @@ typedef struct
 
 
 /**
- * @SPI DFF
+ * @SPI DS
  */
-#define SPI_CRCL_8BITS         0
-#define SPI_CRCL_16BITS        1
+#define SPI_DS_8BITS         7
+#define SPI_DS_16BITS        15
 
 /**
  * @SPI SSM
@@ -157,5 +157,11 @@ void SPI_IRQConfig(uint8_t IRQNumber, EnDiType_t EnorDi);
 void SPI_IRQPriorityConfig(uint8_t IRQNumber, uint8_t IRQPriority);
 void SPI_IRQHandling(SPI_Handle_t *pHandle);
 
+
+/*
+ * other functions that will be helpful for the SPI interface
+ */
+void SPI_enable(SPI_Typedef *pSPIx, EnDiType_t enable);
+void SPI_SSIConfig(SPI_Typedef *pSPIx, EnDiType_t enable);
 
 #endif /* INC_STM32L47XX_SPI_DRIVER_H_ */

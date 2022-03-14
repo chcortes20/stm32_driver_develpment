@@ -107,6 +107,9 @@ void GPIO_Init(GPIOx_Handle_t *pGPIOxHandle)
 {
 	uint32_t temp = 0;
 
+	// enable the GPIO clock without having the user having to do this explicitly
+	GPIO_PeripheralClockControl(pGPIOxHandle->pGPIOx, ENABLE);
+
 	// 1. configure the mode of the GPIO pin
 	if(pGPIOxHandle->GPIO_PinConfig.Mode <= GPIO_MODE_ANALOG)
 	{

@@ -36,7 +36,7 @@ void SPI_PeripheralClockControl(SPI_Typedef *pSPIx, EnDiType_t enable){
 
 		}
 	}
-	else
+	else if (enable == DISABLE)
 	{
 		if(pSPIx == SPI1)
 		{
@@ -68,6 +68,9 @@ void SPI_PeripheralClockControl(SPI_Typedef *pSPIx, EnDiType_t enable){
  */
 void SPI_Init(SPI_Handle_t *pSPIxHandle){
 
+	// configure the SPI_clock
+	SPI_PeripheralClockControl(pSPIxHandle->pSPIx, ENABLE);
+
 	// first lets configure the SPI_CSR1 register
 	uint32_t temp = 0;
 
@@ -91,16 +94,18 @@ void SPI_Init(SPI_Handle_t *pSPIxHandle){
 	}
 
 	// 3. configure the spi serial cloak speed
-	temp |= pSPIxHandle->SPI_config.SPI_SclkSpeed << SPI_CR1_BR;
+	temp |= (pSPIxHandle->SPI_config.SPI_SclkSpeed << SPI_CR1_BR);
 
 	// 4. set DS, leave a lone for now need to figure out if i used correct item
 	// skip, will use 8-bits by default
 
 	// 5. configure the CPOL
-	temp |= pSPIxHandle->SPI_config.SPI_CPOL << SPI_CR1_CPOL;
+	temp |= (pSPIxHandle->SPI_config.SPI_CPOL << SPI_CR1_CPOL);
 
 	// 6. configure the CPHA
-	temp |= pSPIxHandle->SPI_config.SPI_CPHA << SPI_CR1_CPHA;
+	temp |= (pSPIxHandle->SPI_config.SPI_CPHA << SPI_CR1_CPHA);
+
+	temp |= (pSPIxHandle->SPI_config.SPI_SSM << SPI_CR1_SSM);
 
 
 	pSPIxHandle->pSPIx->CR1 = temp;
@@ -224,4 +229,22 @@ void SPI_IRQHandling(SPI_Handle_t *pHandle){
 }
 
 
+
+void SPI_enable(SPI_Typedef *pSPIx, EnDiType_t enable){
+	if(enable == ENABLE){
+		pSPIx->CR1 |= (1 << SPI_CR1_SPE);
+	}
+	else if(enable == DISABLE){
+		pSPIx->CR1 &= ~(1 << SPI_CR1_SPE);
+	}
+}
+
+void SPI_SSIConfig(SPI_Typedef *pSPIx, EnDiType_t enable){
+	if(enable == ENABLE){
+			pSPIx->CR1 |= (1 << SPI_CR1_SSI);
+	}
+	else if(enable == DISABLE){
+		pSPIx->CR1 &= ~(1 << SPI_CR1_SSI);
+	}
+}
 // end of file
